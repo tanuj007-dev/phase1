@@ -1,8 +1,18 @@
 @import "tailwindcss";
 
-/* Tell Tailwind where to scan for classes (v4 – paths are from project root) */
-@source "src/**/*.jsx";
-@source "src/**/*.js";
+@theme {
+  --color-emerald-300: #4595EE;
+  --color-emerald-400: #36D8B8;
+  --color-emerald-500: #36D8B8;
+  --color-emerald-600: #4595EE;
+  --color-emerald-700: #4595EE;
+  --color-emerald-800: #36D8B8;
+
+  --color-slate-500: #939598;
+  --color-slate-600: #939598;
+}
+
+
 
 :root {
   font-family: 'Inter Tight', system-ui, -apple-system, sans-serif;
@@ -14,9 +24,12 @@
   background-color: #f8fafc;
 
   /* Aligned content width and spacing */
-  --content-max: 80rem; /* 1280px = max-w-7xl */
-  --content-padding-x: 1.5rem; /* 24px, lg: 2.5rem, xl: 3rem */
-  --section-padding-y: 5rem;   /* 80px, md: 7rem */
+  --content-max: 80rem;
+  /* 1280px = max-w-7xl */
+  --content-padding-x: 1.5rem;
+  /* 24px, lg: 2.5rem, xl: 3rem */
+  --section-padding-y: 5rem;
+  /* 80px, md: 7rem */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -24,39 +37,32 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
 
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-/* Premium section heading alignment */
-.section-heading {
-  font-size: clamp(1.75rem, 4vw, 2.25rem);
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  line-height: 1.2;
-  color: #0f172a;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  color: #0f172a;
-}
 
 /* Hide scrollbar for slider while keeping scroll */
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+/* Infinite carousel for trusted logos (FeaturedVideoSection) */
+@keyframes scroll-trusted {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-scroll-trusted {
+  animation: scroll-trusted 35s linear infinite;
+}
+
+/* Wellness cards carousel – show 4, infinite loop (5 cards × 2) */
+@keyframes wellness-carousel {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-wellness-carousel {
+  animation: wellness-carousel 40s linear infinite;
 }

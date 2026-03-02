@@ -14,7 +14,7 @@ export const BLOG_POSTS = [
     title: 'From Restless to Restful: A Guide to Better Sleep and Wellness',
     excerpt:
       "Introduction: The link between sleep and wellbeing is stronger than ever. Discover evidence-based tips for winding down and creating a sleep-friendly environment...",
-    image: 'https://images.unsplash.com/photo-1541783245831-57d6fb9716d2?w=600&q=80',
+    image: 'https://images.unsplash.com/photo-1531353826977-0941b4779a1c?w=600&q=80',
   },
   {
     slug: 'nutrition-mental-health',

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import logo from '../../assets/final logo.png';
 
 const QUICK_LINKS = [
   { label: 'Home', to: '/' },
@@ -10,7 +11,7 @@ const QUICK_LINKS = [
 ];
 
 const SOCIAL_LINKS = [
-  { label: 'Facebook', href: 'https://facebook.com', icon: FacebookIcon },
+  { label: 'Facebook',  href: 'https://facebook.com', icon: FacebookIcon },
   { label: 'Twitter', href: 'https://twitter.com', icon: TwitterIcon },
   { label: 'Instagram', href: 'https://instagram.com', icon: InstagramIcon },
   { label: 'LinkedIn', href: 'https://linkedin.com', icon: LinkedInIcon },
@@ -24,6 +25,7 @@ export default function Footer() {
     e.preventDefault();
     setSubmitted(true);
     setFormState({ name: '', email: '', message: '' });
+    setTimeout(() => setSubmitted(false), 3000);
   };
 
   const handleChange = (e) => {
@@ -32,21 +34,35 @@ export default function Footer() {
   };
 
   return (
-    <footer id="contact" className="mt-auto border-t border-slate-200 bg-slate-100/90" role="contentinfo">
-      <div className="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-10 lg:py-20 xl:px-12">
-        {/* Quick Links + Enquiry Form: equal columns on tablet/desktop, stacked on mobile */}
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-x-12 md:gap-y-0 lg:gap-x-16">
-          {/* Quick Links */}
-          <div className="min-w-0">
-            <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+    <footer
+      id="contact"
+      className="mt-auto w-full border-t border-slate-200/80 bg-[linear-gradient(180deg,rgba(54,216,184,0.06)_0%,rgba(69,149,238,0.05)_50%,#f1f5f9_100%)]"
+      role="contentinfo"
+    >
+      <div className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-10 xl:px-12">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_1fr_2fr] lg:gap-10">
+          {/* Col 1: Logo */}
+          <div className="flex flex-col sm:items-center lg:items-start">
+            <Link
+              to="/"
+              className="inline-flex items-center gap-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#36D8B8] focus:ring-offset-2"
+            >
+              <img src={logo} alt="WellTalk" className="h-25 w-auto object-contain" />
+               
+            </Link>
+          </div>
+
+          {/* Col 2: Quick Links */}
+          <div>
+            <h3 className="mb-4 text-xs font-bold uppercase tracking-widest text-[#4595EE]">
               Quick Links
             </h3>
-            <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 sm:gap-x-8">
+            <ul className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-x-6 sm:gap-y-2 lg:flex-col lg:gap-2">
               {QUICK_LINKS.map(({ label, to }) => (
                 <li key={label}>
                   <Link
                     to={to}
-                    className="text-slate-600 transition hover:text-emerald-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 rounded"
+                    className="text-[15px] font-bold text-[#1A3A32] transition-colors hover:text-[#36D8B8]"
                   >
                     {label}
                   </Link>
@@ -55,78 +71,80 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Enquiry Form */}
-          <div className="min-w-0">
-            <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+          {/* Col 3: Social Links */}
+          <div>
+            <h3 className="mb-4 text-xs font-bold uppercase tracking-widest text-[#4595EE]">
+              Follow us
+            </h3>
+            <ul className="flex flex-col items-start gap-3">
+              {SOCIAL_LINKS.map(({ label, href, icon: Icon }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center gap-3 rounded-lg py-1.5 pr-2 transition-colors hover:text-[#36D8B8] focus:outline-none focus:ring-2 focus:ring-[#36D8B8] focus:ring-offset-2"
+                    aria-label={label}
+                  >
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/80 text-[#1A3A32] shadow-sm ring-1 ring-slate-200/60 transition-colors group-hover:bg-[#36D8B8] group-hover:text-white group-hover:ring-[#36D8B8]/40">
+                      <Icon />
+                    </span>
+                    <span className="text-[15px] font-bold text-[#1A3A32] group-hover:text-[#36D8B8]">{label}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Col 4: Enquiry Form – wider column */}
+          <div className="min-w-0 rounded-2xl border border-slate-200/80 bg-white p-6 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.08)] sm:p-8">
+            <h3 className="mb-5 text-xs font-bold uppercase tracking-widest text-[#4595EE]">
               Enquiry Form
             </h3>
-            <form
-              onSubmit={handleSubmit}
-              className="mt-4 flex w-full max-w-md flex-col gap-3 sm:max-w-full"
-              aria-label="Enquiry form"
-            >
-              <input
-                type="text"
-                name="name"
-                value={formState.name}
-                onChange={handleChange}
-                placeholder="Your name"
-                required
-                className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-slate-800 placeholder-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
-              />
-              <input
-                type="email"
-                name="email"
-                value={formState.email}
-                onChange={handleChange}
-                placeholder="Your email"
-                required
-                className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-slate-800 placeholder-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
-              />
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <input
+                  type="text"
+                  name="name"
+                  value={formState.name}
+                  onChange={handleChange}
+                  placeholder="Your Name"
+                  required
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50/80 px-4 py-3.5 text-[14px] font-medium text-[#1A3A32] placeholder-[#939598] outline-none transition-all focus:border-[#36D8B8] focus:ring-2 focus:ring-[#36D8B8]/30"
+                />
+                <input
+                  type="email"
+                  name="email"
+                  value={formState.email}
+                  onChange={handleChange}
+                  placeholder="Your Email"
+                  required
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50/80 px-4 py-3.5 text-[14px] font-medium text-[#1A3A32] placeholder-[#939598] outline-none transition-all focus:border-[#36D8B8] focus:ring-2 focus:ring-[#36D8B8]/30"
+                />
+              </div>
               <textarea
                 name="message"
                 value={formState.message}
                 onChange={handleChange}
-                placeholder="Your message"
-                rows={3}
-                className="w-full resize-none rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-slate-800 placeholder-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                placeholder="How can we help?"
+                required
+                rows={4}
+                className="w-full resize-none rounded-xl border border-slate-200 bg-slate-50/80 px-4 py-3.5 text-[14px] font-medium text-[#1A3A32] placeholder-[#939598] outline-none transition-all focus:border-[#36D8B8] focus:ring-2 focus:ring-[#36D8B8]/30"
               />
               <button
                 type="submit"
-                className="w-fit rounded-full bg-emerald-500 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
+                className="w-full rounded-full bg-[#36D8B8] px-6 py-4 text-[14px] font-bold tracking-wide text-white shadow-[0_4px_14px_rgba(54,216,184,0.35)] transition-all hover:bg-[#2bc4a4] hover:shadow-[0_6px_20px_rgba(54,216,184,0.4)] focus:outline-none focus:ring-2 focus:ring-[#36D8B8] focus:ring-offset-2"
               >
-                {submitted ? 'Sent' : 'Submit'}
+                {submitted ? 'Message Sent!' : 'Submit'}
               </button>
             </form>
           </div>
         </div>
 
-        {/* Social Icons */}
-        <div className="mt-10 border-t border-slate-200 pt-8 sm:mt-12 sm:pt-10">
-          <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-            Follow us
-          </h3>
-          <ul className="mt-4 flex flex-wrap gap-4">
-            {SOCIAL_LINKS.map(({ label, href, icon: Icon }) => (
-              <li key={label}>
-                <a
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-200/80 text-slate-600 transition hover:bg-emerald-500 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
-                  aria-label={label}
-                >
-                  <Icon />
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-
         {/* Disclaimer */}
-        <div className="mt-8 border-t border-slate-200 pt-6 sm:mt-10 sm:pt-8">
-          <p className="max-w-none text-xs leading-relaxed text-slate-500">
-            <strong className="text-slate-600">Disclaimer:</strong> The content on this website
+        <div className="mt-16 flex justify-center border-t border-slate-200/70 pt-8 sm:mt-20 sm:pt-10">
+          <p className="max-w-3xl text-center text-[12px] font-medium leading-relaxed text-[#64748b]">
+            <strong className="font-bold text-[#1A3A32]">Disclaimer:</strong> The content on this website
             is for general wellness and informational purposes only. It is not a substitute for
             professional medical or mental health advice. Please consult a qualified healthcare
             provider for personal guidance.
@@ -139,7 +157,7 @@ export default function Footer() {
 
 function FacebookIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
       <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
     </svg>
   );
@@ -147,7 +165,7 @@ function FacebookIcon() {
 
 function TwitterIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
       <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
     </svg>
   );
@@ -155,7 +173,7 @@ function TwitterIcon() {
 
 function InstagramIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
       <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
     </svg>
   );
@@ -163,7 +181,7 @@ function InstagramIcon() {
 
 function LinkedInIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
       <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
     </svg>
   );

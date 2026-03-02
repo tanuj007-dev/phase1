@@ -3,16 +3,17 @@ import { Link } from 'react-router-dom';
 import slide1 from '../../assets/68e7981cbf8ca2c1d0b413b4_slider1-slide-01.jpg';
 import slide2 from '../../assets/68ece8675f8509d07458640a_slider1-slide-02-min.jpg';
 import slide3 from '../../assets/690437b16af47a7d08c5be8d_slider1-slide-02.jpg';
+import mentalHealthImage from '../../assets/9b2aa95a0cbc075bb8a5fcc7cf8f52e0.jpg';
 
-const HERO_SLIDES = [slide1, slide2, slide3];
+const HERO_SLIDES = [mentalHealthImage, slide1, slide2, slide3];
 
 const BENEFITS = [
-  { text: 'A kind mind' },
-  { text: 'Stress Mitigation' },
-  { text: 'Mental Wellness' },
+  { text: 'A kind mind', icon: '✨' },
+  { text: 'Stress Mitigation', icon: '🌿' },
+  { text: 'Mental Wellness', icon: '🧠' },
 ];
 
-/** Lightweight: single Intersection Observer for scroll-in animation */
+/** Lightweight scroll-in observer */
 function useHeroVisible() {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
@@ -24,7 +25,7 @@ function useHeroVisible() {
       ([entry]) => {
         if (entry.isIntersecting) setVisible(true);
       },
-      { threshold: 0.2, rootMargin: '0px' }
+      { threshold: 0.1, rootMargin: '0px' }
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -36,134 +37,135 @@ function useHeroVisible() {
 export default function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [contentRef, isVisible] = useHeroVisible();
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    setIsLoaded(true);
     const id = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
-    }, 5000);
+    }, 6500);
     return () => clearInterval(id);
   }, []);
 
   return (
     <section
-      className="relative flex min-h-[85vh] w-full items-center overflow-hidden bg-slate-900"
+      className="relative flex min-h-[100vh] w-full items-center justify-center overflow-hidden bg-slate-900"
       aria-labelledby="hero-heading"
     >
-      {/* Full-bleed background: current slide + dark left overlay for text */}
-      <div className="absolute inset-0">
+      {/* Cinematic Background Slider */}
+      <div className="absolute inset-0 z-0">
         {HERO_SLIDES.map((src, i) => (
-          <img
+          <div
             key={i}
-            src={src}
-            alt=""
-            className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-700 ${
-              i === currentSlide ? 'opacity-100' : 'opacity-0'
-            }`}
-            fetchPriority={i === 0 ? 'high' : 'low'}
-          />
+            className={`absolute inset-0 h-full w-full transition-all duration-[2000ms] ease-in-out ${i === currentSlide ? 'opacity-100 z-10 scale-100' : 'opacity-0 z-0 scale-110'
+              }`}
+          >
+            <img
+              src={src}
+              alt=""
+              className="h-full w-full object-cover object-center"
+              fetchPriority={i === 0 ? 'high' : 'low'}
+            />
+            {/* Dramatic precise gradient overlays */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/70 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent" />
+          </div>
         ))}
       </div>
-      <div
-        className="absolute inset-0 bg-linear-to-r from-black/70 via-black/40 to-transparent"
-        aria-hidden
-      />
 
-      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-stretch gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:flex-row lg:items-center lg:justify-between lg:gap-12 lg:px-10 xl:px-12">
-        {/* Left: text + CTAs + benefits */}
+      {/* Main Content Area */}
+      <div className="relative z-20 mx-auto flex w-full max-w-7xl flex-col px-4 pt-32 pb-16 sm:px-6 md:pt-40 lg:px-10 xl:px-12">
+
         <div
           ref={contentRef}
-          className={`min-w-0 flex-1 transition-all duration-700 ease-out lg:max-w-xl ${
-            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
-          }`}
+          className={`max-w-3xl transition-all duration-1000 delay-300 ease-out flex flex-col items-start ${isVisible && isLoaded ? 'translate-y-0 opacity-100 blur-0' : 'translate-y-12 opacity-0 blur-sm'
+            }`}
         >
-          <p className="text-sm font-medium text-white/95 sm:text-base">
-            Align, breathe, meditate
-          </p>
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 py-1.5 px-4 backdrop-blur-md mb-8 shadow-xl">
+            <span className="flex h-2 w-2 rounded-full bg-[#36D8B8] animate-pulse"></span>
+            <span className="text-xs font-semibold tracking-wider text-white uppercase">
+              Align, breathe, meditate
+            </span>
+          </div>
+
+          {/* Headline */}
           <h1
             id="hero-heading"
-            className="mt-2 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl"
+            className="text-5xl font-extrabold tracking-tight text-white sm:text-6xl md:text-[80px] leading-[1.1]"
           >
-            Calm yourself{' '}
-            <span className="text-emerald-300">on the ground</span>
+            Calm yourself <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#36D8B8] to-[#4595EE]">
+              on the ground
+            </span>
           </h1>
-          <div className="mt-6 flex flex-wrap gap-3">
+
+          <p className="mt-6 max-w-xl text-lg text-slate-300 leading-relaxed font-medium">
+            Discover a sanctuary for your mind and body. Build resilience and find your center with our immersive wellness programs and expert-led classes.
+          </p>
+
+          {/* CTAs */}
+          <div className="mt-10 flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
             <Link
               to="/#wellness-overview"
-              className="inline-flex items-center gap-2 rounded-xl bg-emerald-500 px-6 py-3.5 text-sm font-semibold text-white shadow-[0_2px_8px_rgba(16,185,129,0.35)] transition hover:bg-emerald-400 hover:shadow-[0_4px_12px_rgba(16,185,129,0.4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+              className="group relative inline-flex items-center justify-center gap-3 overflow-hidden rounded-full bg-[#36D8B8] px-8 py-4 text-sm font-bold text-white shadow-[0_4px_20px_rgba(54,216,184,0.4)] transition-all duration-300 hover:scale-105 hover:bg-[#2bc4a4] hover:shadow-[0_6px_25px_rgba(54,216,184,0.5)] focus:outline-none"
             >
-              Join a Class Today
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/20">
+              <span className="relative z-10">Join a Class Today</span>
+              <span className="relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/20 transition-transform duration-300 group-hover:translate-x-1">
                 <ArrowRightIcon />
               </span>
             </Link>
+
             <Link
               to="/#contact"
-              className="inline-flex items-center gap-2 rounded-xl border-2 border-emerald-400/90 bg-white/10 px-6 py-3.5 text-sm font-semibold text-emerald-300 backdrop-blur-sm transition hover:bg-white/20 hover:border-emerald-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+              className="group inline-flex items-center justify-center gap-3 rounded-full border-2 border-white/20 bg-white/5 backdrop-blur-md px-8 py-4 text-sm font-bold text-white transition-all duration-300 hover:border-white/40 hover:bg-white/10 focus:outline-none"
             >
-              Book Your Free Trial Session
-              <span className="flex h-6 w-6 items-center justify-center rounded-full text-emerald-400">
+              <span>Book Free Trial</span>
+              <span className="transition-transform duration-300 group-hover:translate-x-1 text-[#4595EE]">
                 <ArrowRightIcon />
               </span>
             </Link>
           </div>
-          <ul className="mt-8 space-y-2">
-            {BENEFITS.map(({ text }) => (
-              <li key={text} className="flex items-center gap-2 text-white">
-                <span className="text-emerald-400" aria-hidden>
-                  <StarIcon />
-                </span>
-                <span className="text-sm font-medium sm:text-base">{text}</span>
-              </li>
-            ))}
-          </ul>
-          {/* Mobile: slide thumbnails row */}
-          <div className="mt-8 flex justify-center gap-3 lg:hidden">
-            {HERO_SLIDES.map((src, i) => (
-              <button
-                key={i}
-                type="button"
-                onClick={() => setCurrentSlide(i)}
-                className={`relative h-14 w-14 overflow-hidden rounded-full border-2 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 ${
-                  i === currentSlide
-                    ? 'border-emerald-400 ring-2 ring-emerald-400/50'
-                    : 'border-white/40 hover:border-white/70'
-                }`}
-                aria-label={`View slide ${i + 1}`}
-                aria-current={i === currentSlide ? 'true' : undefined}
+
+          {/* Benefits List */}
+          <div className="mt-16 grid grid-cols-2 md:grid-cols-3 gap-6 pt-8 border-t border-white/10 w-full max-w-2xl">
+            {BENEFITS.map(({ text, icon }, i) => (
+              <div
+                key={text}
+                className={`flex items-center gap-3 transition-all duration-700 ease-out`}
+                style={{ transitionDelay: `${800 + (i * 150)}ms`, opacity: isVisible ? 1 : 0, transform: isVisible ? 'translateY(0)' : 'translateY(10px)' }}
               >
-                <img src={src} alt="" className="h-full w-full object-cover" />
-              </button>
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 backdrop-blur-md text-[#36D8B8] shadow-inner border border-white/5">
+                  <span className="text-[16px]">{icon}</span>
+                </div>
+                <span className="text-sm font-semibold text-slate-200">{text}</span>
+              </div>
             ))}
           </div>
         </div>
 
-        {/* Right: main hero image + circular thumbnails (desktop) */}
-        <div className="hidden min-w-0 shrink-0 items-end gap-4 lg:flex">
-          <div className="relative h-[280px] w-[240px] shrink-0 overflow-hidden rounded-2xl shadow-2xl ring-2 ring-white/20 xl:h-[320px] xl:w-[280px]">
-            <img
-              src={HERO_SLIDES[currentSlide]}
-              alt=""
-              className="h-full w-full object-cover object-center"
-            />
-          </div>
-          <div className="flex shrink-0 flex-col gap-3">
-            {HERO_SLIDES.map((src, i) => (
+        {/* Modern Slide Navigation Controls */}
+        <div className="absolute right-6 sm:right-10 bottom-10 z-30 flex flex-col items-end gap-5">
+          <div className="flex flex-col gap-3">
+            {HERO_SLIDES.map((_, i) => (
               <button
                 key={i}
                 type="button"
                 onClick={() => setCurrentSlide(i)}
-                className={`relative h-16 w-16 overflow-hidden rounded-full border-2 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 ${
-                  i === currentSlide
-                    ? 'border-emerald-400 ring-2 ring-emerald-400/50'
-                    : 'border-white/40 hover:border-white/70'
-                }`}
+                className="group relative flex items-center justify-end focus:outline-none h-4"
                 aria-label={`View slide ${i + 1}`}
-                aria-current={i === currentSlide ? 'true' : undefined}
               >
-                <img
-                  src={src}
-                  alt=""
-                  className="h-full w-full object-cover"
+                <span
+                  className={`absolute right-8 text-xs font-bold text-white transition-all duration-300 ${i === currentSlide ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-2'
+                    }`}
+                >
+                  0{i + 1}
+                </span>
+                <span
+                  className={`h-[3px] rounded-full transition-all duration-500 ease-in-out ${i === currentSlide
+                      ? 'w-10 bg-[#36D8B8] shadow-[0_0_10px_rgba(54,216,184,0.6)]'
+                      : 'w-4 bg-white/30 group-hover:bg-white/60 group-hover:w-6'
+                    }`}
                 />
               </button>
             ))}
@@ -176,17 +178,9 @@ export default function HeroSection() {
 
 function ArrowRightIcon() {
   return (
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
       <line x1="5" y1="12" x2="19" y2="12" />
       <polyline points="12 5 19 12 12 19" />
-    </svg>
-  );
-}
-
-function StarIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
     </svg>
   );
 }

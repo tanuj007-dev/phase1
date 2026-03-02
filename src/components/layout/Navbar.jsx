@@ -1,35 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/final logo.png';
 
-const Navbar = () => {
+export default function Navbar() {
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => setScrolled(window.scrollY > 20);
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     const navLinkBase =
-        'inline-flex items-center gap-1.5 rounded-lg px-3 py-2.5 text-[15px] font-medium text-white transition-colors hover:text-emerald-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900';
+        'text-[15px] font-medium text-[#939598] transition-colors hover:text-[#36D8B8] focus-visible:outline-none';
 
     return (
-        <header className="fixed left-0 right-0 top-0 z-1000 border-b border-white/10 bg-slate-900">
-            <nav className="mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-6 py-4 lg:px-10 xl:px-12">
-                {/* Logo: circle icon + brand name */}
+        <div className={`fixed left-0 right-0 z-[1000] flex justify-center transition-all duration-500 ${scrolled ? 'top-2' : 'top-6'}`}>
+            <nav className={`flex w-[90%] max-w-5xl items-center justify-between rounded-full bg-white px-4 py-2.5 transition-shadow duration-500 border ${scrolled ? 'shadow-lg border-slate-200' : 'shadow-sm border-slate-100'}`}>
+                {/* Logo */}
                 <Link
                     to="/"
-                    className="flex shrink-0 items-center gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+                    className="flex h-10 w-18 shrink-0 items-center justify-center bg-white transition-transform hover:scale-105"
+                    aria-label="Home"
                 >
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full bg-emerald-500/20 ring-1 ring-emerald-400/30">
-                        <img
-                            src={logo}
-                            alt=""
-                            className="h-6 w-6 object-contain"
-                        />
-                    </div>
-                    <span className="text-lg font-bold text-white">
-                        WellTalk
-                    </span>
+                    <img src={logo} alt="" className="h-15 w-18 object-contain" />
                 </Link>
 
-                {/* Nav links: Home, Pages, Classes, Our Blog, Contact */}
-                <ul className="flex flex-1 list-none items-center justify-center gap-1 p-0 m-0 max-[900px]:hidden">
+                {/* Nav Links */}
+                <ul className="hidden flex-1 list-none items-center justify-center gap-8 md:flex m-0 p-0">
                     <li
                         className="relative"
                         onMouseEnter={() => setDropdownOpen(true)}
@@ -37,80 +36,61 @@ const Navbar = () => {
                     >
                         <button
                             type="button"
-                            className={`${navLinkBase} inline-flex border-0 bg-transparent`}
+                            className={`${navLinkBase} flex items-center gap-1 bg-transparent border-0 cursor-pointer`}
                             aria-expanded={dropdownOpen}
-                            aria-haspopup="true"
                         >
-                            Home Pages
+                            Pages
                             <ChevronDownIcon />
                         </button>
                         <ul
-                            className={`absolute left-1/2 top-full z-1001 mt-1 min-w-[180px] -translate-x-1/2 list-none rounded-xl border border-white/10 bg-slate-800 p-1.5 shadow-xl ${
-                                dropdownOpen ? 'visible opacity-100' : 'invisible opacity-0'
-                            } transition-[opacity,visibility] duration-150 origin-top`}
+                            className={`absolute left-1/2 top-full mt-4 min-w-[120px] -translate-x-1/2 rounded-xl border border-slate-100 bg-white p-2 shadow-xl m-0 list-none transition-all duration-300 ${dropdownOpen ? 'translate-y-0 opacity-100 visible' : 'translate-y-2 opacity-0 invisible'
+                                }`}
                         >
                             <li>
-                                <Link to="/" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-slate-200 hover:bg-white/10 hover:text-white">
+                                <Link to="/" className="block rounded-lg px-3 py-2 text-sm text-[#939598] hover:bg-slate-50 hover:text-[#36D8B8]">
                                     Home
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/#wellness-overview" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-slate-200 hover:bg-white/10 hover:text-white">
-                                    Initiatives
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/#events" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-slate-200 hover:bg-white/10 hover:text-white">
-                                    Events
                                 </Link>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <Link to="/#wellness-overview" className={navLinkBase}>
-                            Classes
+                        <Link to="/#features" className={navLinkBase}>
+                            Features
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/#about" className={navLinkBase}>
+                            About
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/#pricing" className={navLinkBase}>
+                            Pricing
                         </Link>
                     </li>
                     <li>
                         <Link to="/blog" className={navLinkBase}>
-                            Our Blog
+                            Blog
                         </Link>
-                    </li>
-                    <li>
-                        <a href="/#contact" className={navLinkBase}>
-                            Contact
-                        </a>
                     </li>
                 </ul>
 
-                {/* Right: phone + CTA */}
+                {/* Right: Cart & Get a demo */}
                 <div className="flex shrink-0 items-center gap-4">
-                    <a
-                        href="tel:+1234567890"
-                        className="hidden items-center gap-2.5 sm:flex rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
-                        aria-label="Call us"
-                    >
-                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-emerald-500/30 text-white">
-                            <PhoneIcon />
-                        </span>
-                        <span className="text-sm font-medium text-white">
-                            +1-234-567-89
-                        </span>
-                    </a>
+                    <button className="text-[#939598] hover:text-[#36D8B8] transition-colors focus-visible:outline-none bg-transparent border-0 cursor-pointer p-0 mr-2" aria-label="Cart">
+                        <CartIcon />
+                    </button>
                     <Link
-                        to="/#wellness-overview"
-                        className="inline-flex items-center gap-2 rounded-lg bg-emerald-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg transition hover:bg-emerald-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+                        to="/#demo"
+                        className="rounded-full bg-[#4595EE] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#4595EE] focus-visible:outline-none"
                     >
-                        Join us Today
-                        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/20 text-white">
-                            <ArrowRightIcon />
-                        </span>
+                        Get a demo
                     </Link>
                 </div>
             </nav>
-        </header>
+        </div>
     );
-};
+}
 
 const ChevronDownIcon = () => (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 opacity-80" aria-hidden>
@@ -118,17 +98,10 @@ const ChevronDownIcon = () => (
     </svg>
 );
 
-const PhoneIcon = () => (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+const CartIcon = () => (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+        <circle cx="9" cy="21" r="1" />
+        <circle cx="20" cy="21" r="1" />
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
     </svg>
 );
-
-const ArrowRightIcon = () => (
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-        <line x1="5" y1="12" x2="19" y2="12" />
-        <polyline points="12 5 19 12 12 19" />
-    </svg>
-);
-
-export default Navbar;
