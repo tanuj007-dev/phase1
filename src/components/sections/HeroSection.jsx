@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import heroImage from '../../assets/ChatGPT Image Mar 3, 2026, 02_28_09 PM.png';
+
 
 /** Lightweight scroll-in observer */
 function useHeroVisible() {
@@ -42,7 +42,7 @@ export default function HeroSection() {
       {/* Background image */}
       <div className="absolute inset-0 z-0">
         <img
-          src={heroImage}
+          src="https://res.cloudinary.com/dpelqhchv/image/upload/v1772543014/ChatGPT_Image_Mar_3_2026_02_28_09_PM_z2xwj6.png"
           alt=""
           className="h-full w-full object-cover object-[8%_50%] md:object-left"
         />
