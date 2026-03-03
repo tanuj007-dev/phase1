@@ -12,7 +12,7 @@ export default function InitiativePage() {
     return (
       <main className="flex-1 px-4 py-16">
       <div className="mx-auto max-w-2xl text-center">
-        <h1 className="text-2xl font-bold text-slate-800">Initiative not found</h1>
+        <h1 className="text-4xl font-bold tracking-tight leading-[1.15] text-slate-800 sm:text-5xl md:text-6xl">Initiative not found</h1>
         <Link to="/" className="mt-4 inline-block text-emerald-600 hover:underline">
           Back to home
         </Link>
@@ -45,7 +45,7 @@ export default function InitiativePage() {
             loading="eager"
           />
         </div>
-        <h1 className="text-3xl font-bold tracking-tight text-slate-800 md:text-4xl">
+        <h1 className="text-4xl font-bold tracking-tight leading-[1.15] text-slate-800 sm:text-5xl md:text-6xl">
           {title}
         </h1>
         <p className="mt-2 text-lg text-[#939598]">{shortDesc}</p>

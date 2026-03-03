@@ -23,7 +23,7 @@ export default function BlogPage() {
             <span className="text-sm font-semibold uppercase tracking-wide text-emerald-600">
               {post.category}
             </span>
-            <h1 className="mt-2 font-serif text-3xl font-bold text-slate-800">
+            <h1 className="mt-2 text-4xl font-bold tracking-tight leading-[1.15] text-slate-800 sm:text-5xl md:text-6xl">
               {post.title}
             </h1>
             <p className="mt-4 leading-relaxed text-slate-600">{post.excerpt}</p>
@@ -39,7 +39,7 @@ export default function BlogPage() {
   return (
     <main className="flex-1">
       <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-        <h1 className="font-serif text-3xl font-bold text-slate-800">Latest Blog Articles</h1>
+        <h1 className="text-4xl font-bold tracking-tight leading-[1.15] text-slate-800 sm:text-5xl md:text-6xl">Latest Blog Articles</h1>
         <p className="mt-2 text-slate-600">All wellness articles in one place.</p>
         <ul className="mt-10 grid gap-6 sm:grid-cols-2">
           {BLOG_POSTS.map((p) => (

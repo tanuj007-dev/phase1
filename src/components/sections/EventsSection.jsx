@@ -1,4 +1,24 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useLayoutEffect } from 'react';
+
+/** Leaf icon for "Engagement & Connection" label */
+function LeafIcon({ className = 'h-5 w-5' }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M12 22v-8" />
+      <path d="M7 14c-1.5 0-3-.5-4-1.5-1.2-1.3-1.4-3.5-.5-5.2 1-1.8 3.2-2.4 5.5-2 1.2.2 2.4.7 3.3 1.3.4-.6.9-1 1.5-1.3 1.2-.5 2.6-.4 3.8.2 2 1 2.9 3 2.5 5-.3 1.5-1.2 2.7-2.4 3.4" />
+      <path d="M17 14c1.5 0 3-.5 4-1.5 1.2-1.3 1.4-3.5.5-5.2-1-1.8-3.2-2.4-5.5-2-1.2.2-2.4.7-3.3 1.3-.4-.6-.9-1-1.5-1.3-1.2-.5-2.6-.4-3.8.2-2 1-2.9 3-2.5 5 .3 1.5 1.2 2.7 2.4 3.4" />
+    </svg>
+  );
+}
 
 /** Lightweight: single Intersection Observer for smooth scroll-in */
 function useScrollVisible(threshold = 0.12) {
@@ -25,150 +45,406 @@ const CLASSES_DATA = [
   {
     id: 1,
     image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=800',
-    time: '12:00-12:50 PM',
-    students: '10 STUDENTS',
-    title: 'Sunrise Yoga Session',
-    desc: 'A class dedicated to mindfulness and meditation for improved mental health.'
+    time: 'FRI, 10:00 AM',
+    students: 'OPEN EVENT',
+    title: 'Community Mindfulness & Meditation',
+    desc: 'Join us for guided meditation and group reflection to foster emotional resilience and inner calm. Perfect for beginners and regular practitioners alike.'
   },
   {
     id: 2,
     image: 'https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?auto=format&fit=crop&q=80&w=800',
-    time: '12:00-12:50 PM',
-    students: '18 STUDENTS',
-    title: 'Yoga & Wellness Retreat',
-    desc: 'A class dedicated to mindfulness and meditation for improved mental health.'
+    time: 'SAT, 9:00 AM',
+    students: 'ALL LEVELS',
+    title: 'Morning Yoga & Stretch',
+    desc: 'Start your weekend with gentle yoga and stretching. Build flexibility, reduce stress, and connect body and mind in a supportive group setting.'
   },
   {
     id: 3,
     image: 'https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&q=80&w=800',
-    time: '12:00-12:50 PM',
-    students: '8 STUDENTS',
-    title: 'Chakra Balancing Class',
-    desc: 'An energetic cardio dance class that makes fitness enjoyable and engaging.'
+    time: 'SUN, 11:30 AM',
+    students: 'VIRTUAL',
+    title: 'Social Wellness & Awareness Talk',
+    desc: 'Learn how social connections impact mental health. Experts share insights on building awareness, reducing stigma, and nurturing inclusive communities.'
   },
   {
     id: 4,
     image: 'https://images.unsplash.com/photo-1603988363607-e1e4a66962c6?auto=format&fit=crop&q=80&w=800',
-    time: '12:00-12:50 PM',
-    students: '15 STUDENTS',
-    title: 'Candlelight Yin Yoga',
-    desc: 'A beginner-friendly class focusing on the fundamentals of strength training.'
+    time: 'TUE, 6:00 PM',
+    students: 'COMMUNITY',
+    title: 'Inclusivity & Awareness Roundtable',
+    desc: 'A community-led discussion on social wellness and awareness—creating safe, inclusive spaces and supporting mental health for everyone.'
   },
   {
     id: 5,
     image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80&w=800',
-    time: '12:00-12:50 PM',
-    students: '20 STUDENTS',
-    title: "Women's Yoga Circle",
-    desc: 'Explore advanced Pilates techniques to deepen your practice and enhance your strength.'
+    time: 'THU, 5:30 PM',
+    students: 'ALL WELCOME',
+    title: 'Outdoor Yoga & Social Mixer',
+    desc: 'Connect with others through outdoor yoga and mindful conversation. Boost social wellbeing and physical wellness in a relaxed, nature-filled setting.'
   },
   {
     id: 6,
     image: 'https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&fit=crop&q=80&w=800',
-    time: '12:00-12:50 PM',
-    students: '12 STUDENTS',
-    title: 'Outdoor Yoga Festival',
-    desc: 'A comprehensive introduction to the practice of yoga, focusing on its benefits and techniques.'
+    time: 'MON, 8:00 AM',
+    students: 'GROUP ACTIVITY',
+    title: 'Mental Health Awareness Walk',
+    desc: 'A group walk dedicated to raising awareness for mental health, ending stigma, and promoting social wellness—together.'
+  },
+  {
+    id: 7,
+    image: 'https://images.unsplash.com/photo-1593164842264-854604db2260?auto=format&fit=crop&q=80&w=800',
+    time: 'WED, 7:00 PM',
+    students: 'BEGINNERS',
+    title: 'Breathwork & Meditation Circle',
+    desc: 'Explore breathing techniques and seated meditation for stress relief and clarity. No experience needed—just an open mind.'
+  },
+  {
+    id: 8,
+    image: 'https://images.unsplash.com/photo-1543807535-ecec0a14d592?auto=format&fit=crop&q=80&w=800',
+    time: 'FRI, 5:00 PM',
+    students: 'OPEN EVENT',
+    title: 'Sound Healing & Meditation Bath',
+    desc: 'Immerse yourself in therapeutic soundscapes and guided meditation to relieve stress and rebalance your energy.'
+  },
+  {
+    id: 9,
+    image: 'https://images.unsplash.com/photo-1517022812141-23620dba5c23?auto=format&fit=crop&q=80&w=800',
+    time: 'SAT, 10:00 AM',
+    students: 'COMMUNITY',
+    title: 'Restorative Yoga & Mindfulness',
+    desc: 'Slow, supported poses and mindfulness practices to restore body and mind. Ideal for relaxation and self-care.'
+  },
+  {
+    id: 10,
+    image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=800',
+    time: 'SUN, 4:00 PM',
+    students: 'ALL AGES',
+    title: 'Yoga for Wellness Awareness',
+    desc: 'A family-friendly session linking yoga with wellness awareness. Learn simple poses and habits that support mental and physical health.'
+  },
+  {
+    id: 11,
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800',
+    time: 'MON, 6:30 PM',
+    students: 'VIRTUAL',
+    title: 'Empathy & Social Connection Workshop',
+    desc: 'An interactive workshop on social wellness: break down barriers, build empathy, and create meaningful connections in daily life.'
+  },
+  {
+    id: 12,
+    image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=800',
+    time: 'WED, 12:00 PM',
+    students: 'LUNCHTIME',
+    title: 'Midweek Meditation Break',
+    desc: 'A short, guided meditation session to reset your day. Perfect for busy schedules—recharge in 30 minutes.'
   }
 ];
 
+const SLIDE_DURATION_MS = 260;
+
 export default function EventsSection() {
   const [sectionRef, isVisible] = useScrollVisible(0.12);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isChangingPage, setIsChangingPage] = useState(false);
+  const [itemsPerPage, setItemsPerPage] = useState(3);
+  const [slidePhase, setSlidePhase] = useState('idle');
+  const [slideDirection, setSlideDirection] = useState('left');
+  const [slideEnterActive, setSlideEnterActive] = useState(false);
+  const isMobileSlider = itemsPerPage === 1;
+
+  useEffect(() => {
+    const updateItemsPerPage = () => {
+      if (window.innerWidth < 640) setItemsPerPage(1);
+      else if (window.innerWidth < 1024) setItemsPerPage(2);
+      else setItemsPerPage(3);
+    };
+    updateItemsPerPage();
+    window.addEventListener('resize', updateItemsPerPage);
+    return () => window.removeEventListener('resize', updateItemsPerPage);
+  }, []);
+
+  const totalPages = Math.ceil(CLASSES_DATA.length / itemsPerPage);
+
+  useEffect(() => {
+    if (currentPage > totalPages) setCurrentPage(totalPages);
+  }, [totalPages, currentPage]);
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const visibleItems = CLASSES_DATA.slice(startIndex, startIndex + itemsPerPage);
+
+  const changePageWrapper = (updater) => {
+    setIsChangingPage(true);
+    setTimeout(() => {
+      updater();
+      setTimeout(() => setIsChangingPage(false), 50);
+    }, 400);
+  };
+
+  useLayoutEffect(() => {
+    if (slidePhase !== 'entering' || !isMobileSlider) return;
+    const raf = requestAnimationFrame(() => {
+      setSlideEnterActive(true);
+    });
+    return () => cancelAnimationFrame(raf);
+  }, [slidePhase, isMobileSlider]);
+
+  const runMobileSlideNext = () => {
+    setSlideDirection('left');
+    setSlidePhase('exiting');
+    setIsChangingPage(true);
+    setSlideEnterActive(false);
+    setTimeout(() => {
+      setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+      setSlideDirection('right');
+      setSlidePhase('entering');
+      setTimeout(() => {
+        setSlidePhase('idle');
+        setSlideEnterActive(false);
+        setIsChangingPage(false);
+      }, SLIDE_DURATION_MS);
+    }, SLIDE_DURATION_MS);
+  };
+
+  const runMobileSlidePrev = () => {
+    setSlideDirection('right');
+    setSlidePhase('exiting');
+    setIsChangingPage(true);
+    setSlideEnterActive(false);
+    setTimeout(() => {
+      setCurrentPage((prev) => Math.max(prev - 1, 1));
+      setSlideDirection('left');
+      setSlidePhase('entering');
+      setTimeout(() => {
+        setSlidePhase('idle');
+        setSlideEnterActive(false);
+        setIsChangingPage(false);
+      }, SLIDE_DURATION_MS);
+    }, SLIDE_DURATION_MS);
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage <= 1 || isChangingPage) return;
+    if (isMobileSlider) runMobileSlidePrev();
+    else changePageWrapper(() => setCurrentPage((prev) => prev - 1));
+  };
+
+  const handleNextPage = () => {
+    if (currentPage >= totalPages || isChangingPage) return;
+    if (isMobileSlider) runMobileSlideNext();
+    else changePageWrapper(() => setCurrentPage((prev) => prev + 1));
+  };
 
   return (
     <section
       id="events"
       ref={sectionRef}
-      className="relative w-full overflow-hidden bg-[linear-gradient(180deg,rgba(69,149,238,0.05)_0%,rgba(54,216,184,0.04)_50%,#f8fafc_100%)] pt-24 pb-32"
+      className="relative w-full overflow-hidden bg-[linear-gradient(180deg,rgba(69,149,238,0.05)_0%,rgba(54,216,184,0.04)_50%,#f8fafc_100%)] pt-16 pb-20 sm:pt-20 sm:pb-24 md:pt-24 md:pb-32"
       aria-labelledby="events-heading"
     >
       <div className="mx-auto w-full max-w-[1240px] px-4 sm:px-6 lg:px-8">
         {/* Heading – staged scroll-in */}
-        <div className="mx-auto mb-16 flex max-w-2xl flex-col items-center text-center">
-          <span
-            className={`text-xs font-bold uppercase tracking-widest text-[#4595EE] transition-all duration-600 ease-out ${
-              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-            }`}
-          >
-            Explore our classes
-          </span>
+        <div className="mx-auto mb-10 flex max-w-2xl flex-col items-center text-center sm:mb-12 md:mb-16">
           <div
-            className={`my-3 h-0.5 w-12 rounded-full bg-[#36D8B8] transition-all duration-600 ease-out ${
-              isVisible ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'
-            }`}
+            className={`flex items-center justify-center gap-2 transition-all duration-600 ease-out ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+              }`}
+          >
+            <LeafIcon className="h-4 w-4 text-[#4595EE] sm:h-5 sm:w-5" />
+            <span className="text-xs font-bold uppercase tracking-widest text-[#4595EE]">
+              Engagement & Connection
+            </span>
+          </div>
+          <div
+            className={`my-2 h-0.5 w-12 rounded-full bg-[#36D8B8] transition-all duration-600 ease-out sm:my-3 ${isVisible ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'
+              }`}
             style={{ transitionDelay: isVisible ? '80ms' : '0ms' }}
             aria-hidden
           />
           <h2
             id="events-heading"
-            className={`text-4xl font-bold leading-tight tracking-tight text-[#1A3A32] transition-all duration-700 ease-out md:text-[50px] ${
-              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
-            }`}
+            className={`text-3xl font-bold tracking-tight leading-[1.2] text-[#1A3A32] transition-all duration-700 ease-out sm:text-4xl md:text-5xl lg:text-6xl ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
+              }`}
             style={{ transitionDelay: isVisible ? '120ms' : '0ms' }}
           >
-            Classes Page
+            Upcoming Gatherings
           </h2>
+          <p
+            className={`mt-3 text-justify text-sm leading-relaxed text-[#939598] transition-all duration-700 ease-out sm:mt-4 sm:text-left sm:text-[15px] ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
+              }`}
+            style={{ transitionDelay: isVisible ? '200ms' : '0ms' }}
+          >
+            Discover upcoming events focused on social wellness and awareness, meditation, yoga, mindfulness, and more. Join workshops, guided sessions, and community gatherings designed to empower, educate, and connect—and find your space to grow and contribute to holistic wellbeing.
+          </p>
         </div>
 
-        {/* Cards – staggered scroll-in */}
-        <div className="relative z-10 grid grid-cols-1 items-start gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-          {CLASSES_DATA.map((item, index) => (
+        {/* Cards – with mobile-only left/right nav in center */}
+        <div className="relative">
+          {/* Mobile-only: prev/next buttons at vertical center of cards */}
+          {totalPages > 1 && (
+            <>
+              <button
+                type="button"
+                onClick={handlePrevPage}
+                disabled={currentPage === 1 || isChangingPage}
+                className="group absolute left-0 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border-2 border-[#1A3A32] bg-white text-[#1A3A32] shadow-md transition-all duration-300 hover:border-[#4595EE] hover:bg-[#4595EE] hover:text-white disabled:pointer-events-none disabled:opacity-40 sm:hidden"
+                aria-label="Previous events"
+              >
+                <ChevronLeftIcon className="h-5 w-5 transition-transform duration-300 group-hover:-translate-x-0.5" />
+              </button>
+              <button
+                type="button"
+                onClick={handleNextPage}
+                disabled={currentPage === totalPages || isChangingPage}
+                className="group absolute right-0 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border-2 border-[#1A3A32] bg-white text-[#1A3A32] shadow-md transition-all duration-300 hover:border-[#4595EE] hover:bg-[#4595EE] hover:text-white disabled:pointer-events-none disabled:opacity-40 sm:hidden"
+                aria-label="Next events"
+              >
+                <ChevronRightIcon className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-0.5" />
+              </button>
+            </>
+          )}
+
+          <div className={`relative z-10 sm:block ${isMobileSlider ? 'overflow-hidden' : ''}`}>
             <div
-              key={item.id}
-              className="relative flex flex-col rounded-[32px] border border-slate-100 bg-white p-[18px] shadow-sm ring-1 ring-slate-100/80 transition-all duration-600 ease-out hover:-translate-y-2 hover:shadow-[0_16px_48px_-12px_rgba(0,0,0,0.12)] hover:ring-[#36D8B8]/20"
-              style={{
-                transitionDelay: isVisible ? `${180 + index * 100}ms` : '0ms',
-                opacity: isVisible ? 1 : 0,
-                transform: isVisible ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.98)',
-              }}
+              className={`grid grid-cols-1 items-stretch gap-0 sm:gap-6 md:grid-cols-2 md:gap-6 lg:grid-cols-3 lg:gap-8 ${
+                isMobileSlider
+                  ? 'transition-transform duration-250 ease-out'
+                  : `transition-opacity duration-400 ease-in-out ${isChangingPage ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`
+              }`}
+              style={
+                isMobileSlider
+                  ? {
+                      transform: (() => {
+                        if (slidePhase === 'idle') return 'translateX(0)';
+                        if (slidePhase === 'exiting')
+                          return slideDirection === 'left' ? 'translateX(-100%)' : 'translateX(100%)';
+                        if (slidePhase === 'entering') {
+                          if (!slideEnterActive)
+                            return slideDirection === 'right' ? 'translateX(100%)' : 'translateX(-100%)';
+                          return 'translateX(0)';
+                        }
+                        return 'translateX(0)';
+                      })(),
+                      transition: slidePhase === 'entering' && !slideEnterActive ? 'none' : 'transform 250ms ease-out',
+                    }
+                  : undefined
+              }
             >
-              <div className="relative mb-6 aspect-4/3 w-full shrink-0 overflow-hidden rounded-[24px] bg-slate-100">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out hover:scale-105"
-                  loading="lazy"
-                />
-              </div>
+          {visibleItems.map((item, index) => {
+            const colIndex = index % Math.max(itemsPerPage, 1);
+            const translateYAmount = colIndex === 1 ? 'translateY(48px)' : 'translateY(32px)';
 
-              <div className="mb-4 flex items-center justify-center gap-5 text-[10px] font-bold uppercase tracking-wider text-[#939598] sm:text-xs">
-                <span className="flex items-center">
-                  <CalendarIcon className="mr-1.5 h-4 w-4 text-[#36D8B8]" />
-                  {item.time}
-                </span>
-                <span className="flex items-center">
-                  <UsersIcon className="mr-1.5 h-4 w-4 text-[#36D8B8]" />
-                  {item.students}
-                </span>
-              </div>
+            return (
+              <div
+                key={item.id}
+                className="group relative flex flex-col justify-between rounded-2xl border border-slate-100 bg-white p-4 shadow-sm ring-1 ring-slate-100/80 transition-all duration-800 ease-[cubic-bezier(0.25,0.8,0.25,1)] hover:-translate-y-2 hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.15)] hover:ring-[#36D8B8]/30 sm:rounded-3xl sm:p-5 md:rounded-[32px] md:p-[18px]"
+                style={{
+                  transitionDelay: isVisible ? `${250 + (index * 120)}ms` : '0ms',
+                  opacity: isVisible ? 1 : 0,
+                  transform: isVisible ? 'translateY(0) scale(1)' : `${translateYAmount} scale(0.96)`,
+                }}
+              >
+                <div>
+                  <div className="relative mb-4 aspect-4/3 w-full shrink-0 overflow-hidden rounded-xl bg-slate-100 sm:mb-5 sm:rounded-2xl md:mb-6 md:rounded-[24px]">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-linear-to-t from-slate-900/40 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                  </div>
 
-              <div className="mx-2 mb-5 border-t border-slate-100" aria-hidden />
+                  <div className="mb-3 flex flex-wrap items-center justify-center gap-3 text-[10px] font-bold uppercase tracking-wider text-[#939598] sm:mb-4 sm:gap-5 sm:text-xs">
+                    <span className="flex items-center text-[#4595EE]">
+                      <CalendarIcon className="mr-1 h-3.5 w-3.5 sm:mr-1.5 sm:h-4 sm:w-4" />
+                      {item.time}
+                    </span>
+                    <span className="flex items-center text-[#36D8B8]">
+                      <UsersIcon className="mr-1 h-3.5 w-3.5 sm:mr-1.5 sm:h-4 sm:w-4" />
+                      {item.students}
+                    </span>
+                  </div>
 
-              <div className="mb-3 flex flex-1 flex-col px-4">
-                <h3 className="mb-3 text-center text-[22px] font-bold leading-[1.35] text-[#1A3A32]">
-                  {item.title}
-                </h3>
-                <p className="flex-1 text-center text-[13px] leading-[1.8] text-[#939598]">
-                  {item.desc}
-                </p>
-              </div>
+                  <div className="mx-1 mb-4 border-t border-slate-100 sm:mx-2 sm:mb-5" aria-hidden />
 
-              <div className="mt-2 flex justify-center pb-2">
-                <button
-                  type="button"
-                  className="group flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-[#36D8B8] focus:ring-offset-2 rounded-lg"
-                >
-                  <span className="text-[13px] font-bold text-[#1A3A32] transition-colors group-hover:text-[#36D8B8]">
-                    Contact Now
-                  </span>
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#36D8B8] text-white transition-transform duration-300 ease-out group-hover:scale-110">
-                    <ArrowRightIcon className="w-3 h-3 text-white" />
-                  </span>
-                </button>
+                  <div className="mb-2 flex flex-1 flex-col px-1 sm:mb-3 sm:px-2">
+                    <h3 className="mb-2 text-center text-lg font-bold leading-[1.35] text-[#1A3A32] transition-colors group-hover:text-[#4595EE] sm:mb-3 sm:text-xl md:text-[22px]">
+                      {item.title}
+                    </h3>
+                    <p className="flex-1 text-center text-xs leading-[1.7] text-[#939598] sm:text-[13px] sm:leading-[1.8]">
+                      {item.desc}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-3 flex justify-center pb-1 sm:mt-4 sm:pb-2">
+                  <button
+                    type="button"
+                    className="flex items-center gap-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#36D8B8] focus:ring-offset-2"
+                  >
+                    <span className="text-xs font-bold text-[#1A3A32] transition-colors group-hover:text-[#36D8B8] sm:text-[13px]">
+                      Register Now
+                    </span>
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#1A3A32] text-white shadow-sm transition-all duration-300 ease-out group-hover:scale-110 group-hover:bg-[#36D8B8] sm:h-8 sm:w-8">
+                      <ArrowRightIcon className="h-3 w-3 text-white sm:w-3.5 sm:h-3.5" />
+                    </span>
+                  </button>
+                </div>
               </div>
+            );
+          })}
             </div>
-          ))}
+          </div>
         </div>
+
+        {/* Pagination Controls – hidden on mobile, visible from sm */}
+        {totalPages > 1 && (
+          <div
+            className={`mt-10 hidden items-center justify-center gap-2 transition-all duration-700 ease-out sm:mt-12 sm:flex sm:gap-3 md:mt-16 md:gap-4 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}
+            style={{ transitionDelay: isVisible ? '600ms' : '0ms' }}
+          >
+            {/* Prev Button */}
+            <button
+              onClick={handlePrevPage}
+              disabled={currentPage === 1 || isChangingPage}
+              className="group flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-400 shadow-[0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:-translate-y-1 hover:border-[#4595EE] hover:text-[#4595EE] hover:shadow-[0_8px_20px_rgba(69,149,238,0.2)] disabled:pointer-events-none disabled:opacity-40 sm:h-12 sm:w-12"
+              aria-label="Previous events"
+            >
+              <ChevronLeftIcon className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-0.5 sm:h-5 sm:w-5" />
+            </button>
+
+            {/* Page Indicators */}
+            <div className="flex items-center gap-1 rounded-full border border-slate-200 bg-white px-2 py-1.5 shadow-[0_4px_12px_rgba(0,0,0,0.03)] sm:gap-1.5 sm:px-3 sm:py-2">
+              {Array.from({ length: totalPages }).map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => {
+                    if (currentPage !== i + 1) {
+                      changePageWrapper(() => setCurrentPage(i + 1));
+                    }
+                  }}
+                  disabled={isChangingPage}
+                  className={`flex h-8 w-8 items-center justify-center rounded-full text-xs font-semibold transition-all duration-300 sm:h-[34px] sm:w-[34px] sm:text-[14px] ${currentPage === i + 1
+                      ? 'bg-[#4595EE] text-white shadow-md ring-2 ring-[#4595EE]/40 ring-offset-1'
+                      : 'bg-transparent text-slate-400 hover:bg-slate-50 hover:text-[#1A3A32]'
+                    }`}
+                  aria-label={`Go to page ${i + 1}`}
+                >
+                  {i + 1}
+                </button>
+              ))}
+            </div>
+
+            {/* Next Button */}
+            <button
+              onClick={handleNextPage}
+              disabled={currentPage === totalPages || isChangingPage}
+              className="group flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-400 shadow-[0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:-translate-y-1 hover:border-[#4595EE] hover:text-[#4595EE] hover:shadow-[0_8px_20px_rgba(69,149,238,0.2)] disabled:pointer-events-none disabled:opacity-40 sm:h-12 sm:w-12"
+              aria-label="Next events"
+            >
+              <ChevronRightIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 sm:h-5 sm:w-5" />
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
@@ -201,6 +477,22 @@ function ArrowRightIcon({ className }) {
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={className}>
       <line x1="5" y1="12" x2="19" y2="12"></line>
       <polyline points="12 5 19 12 12 19"></polyline>
+    </svg>
+  );
+}
+
+function ChevronLeftIcon({ className }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+  );
+}
+
+function ChevronRightIcon({ className }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <polyline points="9 18 15 12 9 6"></polyline>
     </svg>
   );
 }

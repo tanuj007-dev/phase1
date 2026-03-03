@@ -4,66 +4,115 @@ import logo from '../../assets/final logo.png';
 
 const QUICK_LINKS = [
   { label: 'Home', to: '/' },
-  { label: 'Wellness Initiatives', to: '/#wellness-overview' },
-  { label: 'Featured Video', to: '/#featured-video' },
-  { label: 'Blog', to: '/blog' },
-  { label: 'Events & Activities', to: '/#events' },
+  { label: 'About Us', to: '/#wellness-overview' },
+  { label: 'Programs & Treatments', to: '/#featured-video' },
+  { label: 'Wellness Blog', to: '/blog' },
+];
+
+const TREATMENTS_LINKS = [
+  { label: 'Weight Loss', to: '/#wellness-overview' },
+  { label: 'Hormone Balance', to: '/#wellness-overview' },
+  { label: 'Sleep Optimization', to: '/#wellness-overview' },
+  { label: 'Stress & Mind Wellness', to: '/#wellness-overview' },
+];
+
+const SUPPORT_LINKS = [
+  { label: 'FAQ', to: '/#contact' },
+  { label: 'Careers', to: '/#contact' },
+  { label: 'Privacy Policy', to: '/#contact' },
+  { label: 'Terms & Conditions', to: '/#contact' },
 ];
 
 const SOCIAL_LINKS = [
-  { label: 'Facebook',  href: 'https://facebook.com', icon: FacebookIcon },
-  { label: 'Twitter', href: 'https://twitter.com', icon: TwitterIcon },
-  { label: 'Instagram', href: 'https://instagram.com', icon: InstagramIcon },
+  { label: 'Facebook', href: 'https://facebook.com', icon: FacebookIcon },
   { label: 'LinkedIn', href: 'https://linkedin.com', icon: LinkedInIcon },
+  { label: 'Instagram', href: 'https://instagram.com', icon: InstagramIcon },
+  { label: 'Twitter', href: 'https://twitter.com', icon: TwitterIcon },
 ];
 
 export default function Footer() {
-  const [formState, setFormState] = useState({ name: '', email: '', message: '' });
+  const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubscribe = (e) => {
     e.preventDefault();
     setSubmitted(true);
-    setFormState({ name: '', email: '', message: '' });
+    setEmail('');
     setTimeout(() => setSubmitted(false), 3000);
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormState((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
     <footer
       id="contact"
-      className="mt-auto w-full border-t border-slate-200/80 bg-[linear-gradient(180deg,rgba(54,216,184,0.06)_0%,rgba(69,149,238,0.05)_50%,#f1f5f9_100%)]"
+      className="relative mt-auto w-full overflow-hidden bg-sky-200 text-slate-800"
       role="contentinfo"
     >
-      <div className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-10 xl:px-12">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_1fr_2fr] lg:gap-10">
-          {/* Col 1: Logo */}
-          <div className="flex flex-col sm:items-center lg:items-start">
-            <Link
-              to="/"
-              className="inline-flex items-center gap-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#36D8B8] focus:ring-offset-2"
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-10 lg:py-12 xl:px-12">
+        {/* Top section: Newsletter */}
+        <div className="flex flex-col gap-6 border-b border-slate-400/60 pb-8 sm:gap-8 sm:pb-10 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
+          <div className="max-w-xl">
+            <h2 className="text-xl font-bold tracking-tight text-slate-800 sm:text-2xl md:text-3xl lg:text-4xl">
+              Get Our News And Updates
+            </h2>
+            <p className="mt-1.5 text-sm leading-relaxed text-slate-800 sm:mt-2 sm:text-base">
+              Empowering Your Projects, Enhancing Your Success, Every Step of the Way.
+            </p>
+          </div>
+          <form
+            onSubmit={handleSubscribe}
+            className="flex w-full max-w-md shrink-0 flex-col gap-2 rounded-2xl bg-white/80 p-1.5 ring-1 ring-slate-300 backdrop-blur-sm focus-within:ring-2 focus-within:ring-sky-600 sm:flex-row sm:gap-0 sm:rounded-full sm:p-0"
+          >
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your mail"
+              required
+              className="min-w-0 flex-1 rounded-xl bg-transparent px-4 py-3 text-sm text-slate-800 placeholder-slate-500 outline-none sm:rounded-none sm:px-5 sm:py-3.5 sm:text-base lg:px-6 lg:py-4"
+            />
+            <button
+              type="submit"
+              className="w-full rounded-xl bg-sky-600 px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-sky-700 sm:w-auto sm:rounded-full sm:px-6 sm:py-3.5 sm:text-base lg:px-8 lg:py-4"
             >
-              <img src={logo} alt="WellTalk" className="h-25 w-auto object-contain" />
-               
+              {submitted ? 'Subscribed!' : 'Subscribe'}
+            </button>
+          </form>
+        </div>
+
+        {/* Main columns: Logo + description + social | Quick Links | Treatments | Support */}
+        <div className="grid grid-cols-1 gap-8 py-8 sm:grid-cols-2 sm:gap-8 sm:py-10 lg:grid-cols-4 lg:gap-8 lg:py-12">
+          {/* Column 1: Logo, description, social */}
+          <div className="flex flex-col sm:col-span-2 lg:col-span-1">
+            <Link to="/" className="inline-flex items-center gap-2.5 rounded focus:outline-none focus:ring-2 focus:ring-sky-600 focus:ring-offset-2 focus:ring-offset-sky-200">
+              <img src={logo} alt="WellTalk" className="h-14 w-28 object-contain sm:h-16 sm:w-32 lg:h-20 lg:w-40" />
             </Link>
+            <p className="mt-3 text-sm leading-relaxed text-slate-800 sm:mt-4">
+              Our trusted partner in holistic health and well-being. We bring science, care, and compassion together.
+            </p>
+            <ul className="mt-4 flex gap-2.5 sm:mt-6 sm:gap-3">
+              {SOCIAL_LINKS.map(({ label, href, icon: Icon }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-700 text-white transition-colors hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-600 sm:h-10 sm:w-10"
+                    aria-label={label}
+                  >
+                    <Icon />
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* Col 2: Quick Links */}
+          {/* Column 2: Quick Links */}
           <div>
-            <h3 className="mb-4 text-xs font-bold uppercase tracking-widest text-[#4595EE]">
-              Quick Links
-            </h3>
-            <ul className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-x-6 sm:gap-y-2 lg:flex-col lg:gap-2">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 sm:text-sm">Quick Links</h3>
+            <ul className="mt-3 flex flex-col gap-1.5 sm:mt-4 sm:gap-2">
               {QUICK_LINKS.map(({ label, to }) => (
                 <li key={label}>
-                  <Link
-                    to={to}
-                    className="text-[15px] font-bold text-[#1A3A32] transition-colors hover:text-[#36D8B8]"
-                  >
+                  <Link to={to} className="text-sm text-slate-800 transition-colors hover:text-slate-900">
                     {label}
                   </Link>
                 </li>
@@ -71,84 +120,46 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Col 3: Social Links */}
+          {/* Column 3: Treatments */}
           <div>
-            <h3 className="mb-4 text-xs font-bold uppercase tracking-widest text-[#4595EE]">
-              Follow us
-            </h3>
-            <ul className="flex flex-col items-start gap-3">
-              {SOCIAL_LINKS.map(({ label, href, icon: Icon }) => (
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 sm:text-sm">Treatments</h3>
+            <ul className="mt-3 flex flex-col gap-1.5 sm:mt-4 sm:gap-2">
+              {TREATMENTS_LINKS.map(({ label, to }) => (
                 <li key={label}>
-                  <a
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex items-center gap-3 rounded-lg py-1.5 pr-2 transition-colors hover:text-[#36D8B8] focus:outline-none focus:ring-2 focus:ring-[#36D8B8] focus:ring-offset-2"
-                    aria-label={label}
-                  >
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/80 text-[#1A3A32] shadow-sm ring-1 ring-slate-200/60 transition-colors group-hover:bg-[#36D8B8] group-hover:text-white group-hover:ring-[#36D8B8]/40">
-                      <Icon />
-                    </span>
-                    <span className="text-[15px] font-bold text-[#1A3A32] group-hover:text-[#36D8B8]">{label}</span>
-                  </a>
+                  <Link to={to} className="text-sm text-slate-800 transition-colors hover:text-slate-900">
+                    {label}
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Col 4: Enquiry Form – wider column */}
-          <div className="min-w-0 rounded-2xl border border-slate-200/80 bg-white p-6 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.08)] sm:p-8">
-            <h3 className="mb-5 text-xs font-bold uppercase tracking-widest text-[#4595EE]">
-              Enquiry Form
-            </h3>
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <input
-                  type="text"
-                  name="name"
-                  value={formState.name}
-                  onChange={handleChange}
-                  placeholder="Your Name"
-                  required
-                  className="w-full rounded-xl border border-slate-200 bg-slate-50/80 px-4 py-3.5 text-[14px] font-medium text-[#1A3A32] placeholder-[#939598] outline-none transition-all focus:border-[#36D8B8] focus:ring-2 focus:ring-[#36D8B8]/30"
-                />
-                <input
-                  type="email"
-                  name="email"
-                  value={formState.email}
-                  onChange={handleChange}
-                  placeholder="Your Email"
-                  required
-                  className="w-full rounded-xl border border-slate-200 bg-slate-50/80 px-4 py-3.5 text-[14px] font-medium text-[#1A3A32] placeholder-[#939598] outline-none transition-all focus:border-[#36D8B8] focus:ring-2 focus:ring-[#36D8B8]/30"
-                />
-              </div>
-              <textarea
-                name="message"
-                value={formState.message}
-                onChange={handleChange}
-                placeholder="How can we help?"
-                required
-                rows={4}
-                className="w-full resize-none rounded-xl border border-slate-200 bg-slate-50/80 px-4 py-3.5 text-[14px] font-medium text-[#1A3A32] placeholder-[#939598] outline-none transition-all focus:border-[#36D8B8] focus:ring-2 focus:ring-[#36D8B8]/30"
-              />
-              <button
-                type="submit"
-                className="w-full rounded-full bg-[#36D8B8] px-6 py-4 text-[14px] font-bold tracking-wide text-white shadow-[0_4px_14px_rgba(54,216,184,0.35)] transition-all hover:bg-[#2bc4a4] hover:shadow-[0_6px_20px_rgba(54,216,184,0.4)] focus:outline-none focus:ring-2 focus:ring-[#36D8B8] focus:ring-offset-2"
-              >
-                {submitted ? 'Message Sent!' : 'Submit'}
-              </button>
-            </form>
+          {/* Column 4: Support */}
+          <div>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 sm:text-sm">Support</h3>
+            <ul className="mt-3 flex flex-col gap-1.5 sm:mt-4 sm:gap-2">
+              {SUPPORT_LINKS.map(({ label, to }) => (
+                <li key={label}>
+                  <Link to={to} className="text-sm text-slate-800 transition-colors hover:text-slate-900">
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
-        {/* Disclaimer */}
-        <div className="mt-16 flex justify-center border-t border-slate-200/70 pt-8 sm:mt-20 sm:pt-10">
-          <p className="max-w-3xl text-center text-[12px] font-medium leading-relaxed text-[#64748b]">
-            <strong className="font-bold text-[#1A3A32]">Disclaimer:</strong> The content on this website
-            is for general wellness and informational purposes only. It is not a substitute for
-            professional medical or mental health advice. Please consult a qualified healthcare
-            provider for personal guidance.
-          </p>
+        {/* Bottom bar: Copyright | Privacy & Terms */}
+        <div className="flex flex-col items-center justify-between gap-3 border-t border-slate-400/60 pt-5 text-center text-xs text-slate-800 sm:flex-row sm:gap-4 sm:pt-6 sm:text-left sm:text-sm">
+          <p>© {new Date().getFullYear()} WellTalk. All rights reserved.</p>
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
+            <Link to="/#contact" className="transition-colors hover:text-slate-900">
+              Privacy Policy
+            </Link>
+            <Link to="/#contact" className="transition-colors hover:text-slate-900">
+              Terms of Services
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
@@ -157,8 +168,8 @@ export default function Footer() {
 
 function FacebookIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
     </svg>
   );
 }
@@ -181,8 +192,10 @@ function InstagramIcon() {
 
 function LinkedInIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+      <rect x="2" y="9" width="4" height="12" />
+      <circle cx="4" cy="4" r="2" />
     </svg>
   );
 }
