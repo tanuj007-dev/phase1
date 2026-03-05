@@ -13,7 +13,7 @@ import JourneyContactSection from './components/sections/JourneyContactSection';
 import FAQSection from './components/sections/FAQSection';
 import InitiativePage from './pages/InitiativePage';
 import BlogPage from './pages/BlogPage';
-import AboutPage from './pages/AboutPage';
+ 
 import ContactPage from './pages/ContactPage';
 import './App.css';
 import AboutUs from './pages/about-us';
@@ -47,6 +47,8 @@ function App() {
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:slug" element={<BlogPage />} />
           <Route path="/about-us" element={<AboutUs />} />
+        
+          <Route path="/contact" element={<ContactPage />} />
         </Routes>
       </div>
       <Footer />
