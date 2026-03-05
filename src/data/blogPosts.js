@@ -1,35 +1,105 @@
-/** Blog posts for the Latest Blog Articles slider – wellness themed */
+/** Default author when post has no author. */
+export const DEFAULT_AUTHOR = {
+  name: 'Anais Emmerich',
+  image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop&q=80',
+};
+
+/** Blog posts for blog listing and detail – wellness themed. category used for filter (Medicine, Health, Data). */
+export const BLOG_CATEGORIES = ['All', 'Medicine', 'Health', 'Data'];
+
 export const BLOG_POSTS = [
   {
+    slug: 'boost-immune-rainy-season',
+    category: 'Health',
+    author: { name: 'Anais Emmerich', image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop&q=80' },
+    title: '5 Ways to Boost Your Immune System During Rainy Season',
+    date: 'September 4, 2025',
+    readTime: '3 min read',
+    excerpt: 'Practical tips to strengthen immunity when the weather turns. Learn about nutrition, sleep, and daily habits that keep you resilient.',
+    image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80',
+    content: [
+      { type: 'heading', text: 'What defines a smart workflow?' },
+      { type: 'paragraph', text: 'A smart workflow combines consistency, simplicity, and adaptability. When it comes to supporting your immune system, the same principles apply: small daily habits that you can sustain matter more than short-term fixes.' },
+      { type: 'list', items: ['Prioritize sleep and rest', 'Eat a variety of whole foods', 'Stay hydrated', 'Manage stress with movement or mindfulness', 'Wash hands and avoid touching your face'] },
+      { type: 'heading', text: 'Understanding the Concept' },
+      { type: 'paragraph', text: 'Your immune system works best when it is supported by steady, healthy habits rather than occasional boosts. During the rainy season, exposure to moisture and changing temperatures can make you more susceptible to infections. Building resilience through nutrition and lifestyle helps your body respond better.' },
+      { type: 'image', src: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&q=80', alt: 'Healthy nutrition' },
+      { type: 'heading', text: 'Strategy and Positioning' },
+      { type: 'paragraph', text: 'Position yourself for success by planning ahead. Stock your kitchen with immune-friendly foods, set a regular sleep schedule, and keep hand hygiene top of mind. When you align your environment with your goals, staying healthy becomes part of your routine rather than a constant effort.' },
+      { type: 'heading', text: 'Conclusion' },
+      { type: 'paragraph', text: 'Boosting your immune system during the rainy season is about consistency over intensity. Focus on sleep, nutrition, hydration, and stress management. Small, sustainable steps will support your wellbeing all season long.' },
+    ],
+  },
+  {
+    slug: 'improve-mental-health-naturally',
+    category: 'Health',
+    title: 'Simple Steps to Improve Your Mental Health Naturally',
+    date: 'September 2, 2025',
+    readTime: '4 min read',
+    excerpt: 'Evidence-based habits for a calmer mind. From movement to mindfulness, small changes that add up.',
+    image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80',
+  },
+  {
     slug: 'mindfulness-daily-habits',
-    category: 'Mindfulness',
+    category: 'Health',
     title: 'Mindfulness in Daily Life: Simple Habits for a Calmer You',
-    excerpt:
-      "Introduction: Small shifts in how you start and end your day can transform your mental clarity. Learn how five-minute practices can reduce stress and improve focus...",
+    date: 'August 28, 2025',
+    readTime: '5 min read',
+    excerpt: "Small shifts in how you start and end your day can transform your mental clarity. Learn how five-minute practices can reduce stress and improve focus.",
     image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&q=80',
   },
   {
+    slug: 'preventive-care-checkups',
+    category: 'Medicine',
+    title: 'Why Preventive Care and Regular Checkups Matter',
+    date: 'September 1, 2025',
+    readTime: '4 min read',
+    excerpt: 'How routine screenings and doctor visits help catch issues early and support long-term wellness.',
+    image: 'https://images.unsplash.com/photo-1588286840104-8957b019727f?w=600&q=80',
+  },
+  {
     slug: 'sleep-wellness',
-    category: 'Sleep & Rest',
+    category: 'Medicine',
     title: 'From Restless to Restful: A Guide to Better Sleep and Wellness',
-    excerpt:
-      "Introduction: The link between sleep and wellbeing is stronger than ever. Discover evidence-based tips for winding down and creating a sleep-friendly environment...",
+    date: 'August 30, 2025',
+    readTime: '5 min read',
+    excerpt: "The link between sleep and wellbeing is stronger than ever. Discover evidence-based tips for winding down and creating a sleep-friendly environment.",
     image: 'https://images.unsplash.com/photo-1531353826977-0941b4779a1c?w=600&q=80',
   },
   {
     slug: 'nutrition-mental-health',
-    category: 'Nutrition',
+    category: 'Medicine',
     title: 'Food and Mood: How Nutrition Supports Mental Health',
-    excerpt:
-      "Dive into the connection between what you eat and how you feel. Learn how whole foods, hydration, and mindful eating can support a balanced mind and body...",
+    date: 'August 25, 2025',
+    readTime: '4 min read',
+    excerpt: "Dive into the connection between what you eat and how you feel. Learn how whole foods, hydration, and mindful eating support a balanced mind and body.",
     image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&q=80',
   },
   {
+    slug: 'health-data-privacy',
+    category: 'Data',
+    title: 'Understanding Health Data Privacy and Your Rights',
+    date: 'August 22, 2025',
+    readTime: '5 min read',
+    excerpt: 'How your wellness data is used and protected. A clear guide to consent, access, and security.',
+    image: 'https://images.unsplash.com/photo-1566501206188-5dd0cf160a0e?w=600&q=80',
+  },
+  {
+    slug: 'wearables-wellness-insights',
+    category: 'Data',
+    title: 'Using Wearables and Apps for Smarter Wellness Insights',
+    date: 'August 18, 2025',
+    readTime: '4 min read',
+    excerpt: 'Making sense of steps, sleep, and heart rate data. Turn numbers into actionable habits.',
+    image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&q=80',
+  },
+  {
     slug: 'movement-stress',
-    category: 'Movement',
+    category: 'Data',
     title: 'Movement as Medicine: Easing Stress Through Gentle Exercise',
-    excerpt:
-      "From walking to yoga, find out how regular movement can lower cortisol and boost mood. Practical routines you can start with just 10 minutes a day...",
+    date: 'August 15, 2025',
+    readTime: '5 min read',
+    excerpt: "From walking to yoga, find out how regular movement can lower cortisol and boost mood. Practical routines you can start with just 10 minutes a day.",
     image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&q=80',
   },
 ];

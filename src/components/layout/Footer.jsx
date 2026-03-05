@@ -17,7 +17,7 @@ const TREATMENTS_LINKS = [
 ];
 
 const SUPPORT_LINKS = [
-  { label: 'FAQ', to: '/#contact' },
+  { label: 'FAQ', to: '/#faq' },
   { label: 'Careers', to: '/#contact' },
   { label: 'Privacy Policy', to: '/#contact' },
   { label: 'Terms & Conditions', to: '/#contact' },

@@ -37,20 +37,23 @@ export default function Navbar() {
 
     const isOnHomeWithHeroVisible = location.pathname === '/' && scrollY < HERO_SCROLL_THRESHOLD;
     const useHeroLogo = isOnHomeWithHeroVisible;
+    /** On blog (and other non-home) pages the background is white, so nav must use dark/visible style. */
+    const useDarkNav = scrolled || location.pathname !== '/';
 
     const isActive = (path) => {
         if (path === '/') return location.pathname === '/' && location.hash === '';
+        if (path === '/blog') return location.pathname === '/blog' || location.pathname.startsWith('/blog/');
         return location.hash === path || location.pathname === path;
     };
 
     const getLinkClass = (path) => {
         const active = isActive(path);
-        if (active) return `text-[15px] font-semibold transition-colors focus-visible:outline-none ${scrolled ? 'text-[#4595EE]' : 'text-white'}`;
-        return `text-[15px] font-semibold transition-colors focus-visible:outline-none hover:text-slate-800 ${scrolled ? 'text-slate-600' : 'text-white'}`;
+        if (active) return `text-[15px] font-semibold transition-colors focus-visible:outline-none ${useDarkNav ? 'text-[#4595EE]' : 'text-white'}`;
+        return `text-[15px] font-semibold transition-colors focus-visible:outline-none hover:text-slate-800 ${useDarkNav ? 'text-slate-600' : 'text-white'}`;
     };
 
     return (
-        <header className={`fixed top-0 z-1000 w-full border-b transition-all duration-500 ${scrolled ? 'border-slate-200 bg-white/90 py-2 shadow-sm backdrop-blur-lg' : 'border-transparent bg-transparent py-4'}`}>
+        <header className={`fixed top-0 z-1000 w-full border-b transition-all duration-500 ${useDarkNav ? 'border-slate-200 bg-white/90 py-2 shadow-sm backdrop-blur-lg' : 'border-transparent bg-transparent py-4'}`}>
             <nav className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-10 xl:px-12">
                 {/* Logo: hero logo when in hero section, default after scroll */}
                 <Link
@@ -64,7 +67,7 @@ export default function Navbar() {
                 {/* Nav Links – glassmorphism pill */}
                 <div className="hidden flex-1 md:flex md:justify-center">
                     <ul
-                        className={`list-none m-0 flex items-center rounded-full px-6 py-2.5 backdrop-blur-xl shadow-lg md:px-8 md:gap-12 ${scrolled ? 'gap-8 border border-slate-200/80 bg-white/70' : 'gap-6 border border-white/25 bg-white/15'}`}
+                        className={`list-none m-0 flex items-center rounded-full px-6 py-2.5 backdrop-blur-xl shadow-lg md:px-8 md:gap-12 ${useDarkNav ? 'gap-8 border border-slate-200/80 bg-white/70' : 'gap-6 border border-white/25 bg-white/15'}`}
                     >
                     <li
                         className="relative"
@@ -111,7 +114,7 @@ export default function Navbar() {
                         aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
                         aria-expanded={mobileMenuOpen}
                         aria-controls="mobile-nav-menu"
-                        className={`md:hidden flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[#4595EE]/40 bg-[#4595EE]/25 backdrop-blur-sm text-white transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#4595EE] ${scrolled ? 'border-[#4595EE]/50 bg-[#4595EE]/30 text-slate-800' : ''}`}
+                        className={`md:hidden flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[#4595EE]/40 bg-[#4595EE]/25 backdrop-blur-sm transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#4595EE] ${useDarkNav ? 'border-[#4595EE]/50 bg-[#4595EE]/30 text-slate-800' : 'text-white'}`}
                     >
                         {mobileMenuOpen ? (
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -126,7 +129,7 @@ export default function Navbar() {
 
                     <Link
                         to="/#demo"
-                        className={`hidden md:inline-flex group items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold backdrop-blur-xl border shadow-lg transition-all hover:-translate-y-0.5 focus-visible:outline-none ${scrolled ? 'border-slate-200/80 bg-white/70 text-slate-800 hover:bg-white/90' : 'border-white/25 bg-white/15 text-white hover:bg-white/25'}`}
+                        className={`hidden md:inline-flex group items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold backdrop-blur-xl border shadow-lg transition-all hover:-translate-y-0.5 focus-visible:outline-none ${useDarkNav ? 'border-slate-200/80 bg-white/70 text-slate-800 hover:bg-white/90' : 'border-white/25 bg-white/15 text-white hover:bg-white/25'}`}
                     >
                         <span>Enquire Now</span>
                         <svg className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>

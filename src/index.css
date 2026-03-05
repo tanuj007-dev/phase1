@@ -38,6 +38,26 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+html,
+body {
+  /* Prevent horizontal scrollbars, ensure singular OS vertical scrollbar */
+  max-width: 100vw;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+
+  /* Global scrollbar hide as requested */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari and Opera */
+}
+
 
 
 /* Hide scrollbar for slider while keeping scroll */
@@ -70,6 +90,7 @@
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-50%);
   }
@@ -83,20 +104,16 @@
 /* Desktop only: subtle fade at edges on wellness carousel */
 @media (min-width: 768px) {
   .wellness-carousel-fade {
-    mask-image: linear-gradient(
-      to right,
-      transparent 0,
-      black 3%,
-      black 97%,
-      transparent 100%
-    );
-    -webkit-mask-image: linear-gradient(
-      to right,
-      transparent 0,
-      black 3%,
-      black 97%,
-      transparent 100%
-    );
+    mask-image: linear-gradient(to right,
+        transparent 0,
+        black 3%,
+        black 97%,
+        transparent 100%);
+    -webkit-mask-image: linear-gradient(to right,
+        transparent 0,
+        black 3%,
+        black 97%,
+        transparent 100%);
     mask-size: 100% 100%;
     mask-repeat: no-repeat;
     -webkit-mask-size: 100% 100%;
