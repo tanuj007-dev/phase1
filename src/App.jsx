@@ -14,6 +14,7 @@ import FAQSection from './components/sections/FAQSection';
 import InitiativePage from './pages/InitiativePage';
 import BlogPage from './pages/BlogPage';
 import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage';
 import './App.css';
 
 function Home() {
@@ -45,6 +46,7 @@ function App() {
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:slug" element={<BlogPage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
         </Routes>
       </div>
       <Footer />

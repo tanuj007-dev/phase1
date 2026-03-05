@@ -68,12 +68,12 @@ function Counter({ end, duration = 2000, suffix = '', label, delay = 0, Icon }) 
   return (
     <div
       ref={ref}
-      className={`flex flex-row items-center gap-4 text-left transition-all duration-1000 sm:gap-5 ${hasTriggered ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}
+      className={`flex flex-row items-center gap-3 text-left transition-all duration-1000 sm:gap-5 md:gap-4 ${hasTriggered ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0 sm:translate-y-12'}`}
     >
-      <div className="shrink-0 text-[#4595EE] [&>svg]:h-14 [&>svg]:w-14 [&>svg]:shrink-0 sm:[&>svg]:h-16 sm:[&>svg]:w-16 lg:[&>svg]:h-18 lg:[&>svg]:w-18">
+      <div className="shrink-0 text-[#4595EE] [&>svg]:h-11 [&>svg]:w-11 sm:[&>svg]:h-14 sm:[&>svg]:w-14 md:[&>svg]:h-16 md:[&>svg]:w-16">
         <Icon aria-hidden />
       </div>
-      <div className="flex min-w-0 flex-col">
+      <div className="flex min-w-0 flex-1 flex-col">
         <div className="flex items-baseline">
           <span
             className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl"
@@ -90,7 +90,7 @@ function Counter({ end, duration = 2000, suffix = '', label, delay = 0, Icon }) 
             </span>
           )}
         </div>
-        <span className="mt-0.5 text-sm font-normal sm:text-base" style={{ color: '#4595EE' }}>
+        <span className="mt-0.5 text-xs font-normal sm:text-sm md:text-base" style={{ color: '#4595EE' }}>
           {label}
         </span>
       </div>
@@ -100,9 +100,9 @@ function Counter({ end, duration = 2000, suffix = '', label, delay = 0, Icon }) 
 
 export default function StatsSection() {
   return (
-    <section className="relative z-10 w-full border-t-2 border-transparent bg-white py-16 px-4 sm:py-20 sm:px-6 lg:py-24">
+    <section className="relative z-10 w-full border-t-2 border-transparent bg-white px-4 py-12 sm:px-6 sm:py-16 md:py-20 lg:py-24">
       <div className="mx-auto max-w-7xl">
-        <div className="grid grid-cols-1 text-[#4595EE] gap-10 justify-items-start sm:grid-cols-2 lg:grid-cols-4 lg:gap-8 lg:gap-x-12">
+        <div className="grid grid-cols-2 md:grid-cols-2 gap-8 justify-items-center text-[#4595EE] sm:grid-cols-2 sm:gap-x-10 sm:gap-y-12 md:gap-x-12 lg:grid-cols-4 lg:gap-8 lg:gap-x-12">
           {STATS.map((stat, i) => (
             <Counter
               key={stat.label}

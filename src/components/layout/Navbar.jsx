@@ -93,8 +93,8 @@ export default function Navbar() {
                         </Link>
                     </li>
                     <li>
-                        <Link to="#pricing" className={getLinkClass('#pricing')}>
-                            Pricing
+                        <Link to="/contact" className={getLinkClass('/contact')}>
+                            Contact
                         </Link>
                     </li>
                     <li>
@@ -186,11 +186,11 @@ export default function Navbar() {
                         About
                     </Link>
                     <Link
-                        to="#pricing"
-                        className={`text-xl font-semibold tracking-wide uppercase focus:outline-none focus:ring-2 focus:ring-white/50 rounded ${isActive('#pricing') ? 'text-[#4595EE]' : 'text-white hover:text-white/90'}`}
+                        to="/contact"
+                        className={`text-xl font-semibold tracking-wide uppercase focus:outline-none focus:ring-2 focus:ring-white/50 rounded ${isActive('/contact') ? 'text-[#4595EE]' : 'text-white hover:text-white/90'}`}
                         onClick={closeMobileMenu}
                     >
-                        Pricing
+                        Contact
                     </Link>
                     <Link
                         to="/blog"
