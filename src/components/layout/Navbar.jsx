@@ -88,7 +88,7 @@ export default function Navbar() {
                         </Link>
                     </li>
                     <li>
-                        <Link to="#about" className={getLinkClass('#about')}>
+                        <Link to="/about" className={getLinkClass('/about')}>
                             About
                         </Link>
                     </li>
@@ -179,8 +179,8 @@ export default function Navbar() {
                         Features
                     </Link>
                     <Link
-                        to="#about"
-                        className={`text-xl font-semibold tracking-wide uppercase focus:outline-none focus:ring-2 focus:ring-white/50 rounded ${isActive('#about') ? 'text-[#4595EE]' : 'text-white hover:text-white/90'}`}
+                        to="/about"
+                        className={`text-xl font-semibold tracking-wide uppercase focus:outline-none focus:ring-2 focus:ring-white/50 rounded ${isActive('/about') ? 'text-[#4595EE]' : 'text-white hover:text-white/90'}`}
                         onClick={closeMobileMenu}
                     >
                         About

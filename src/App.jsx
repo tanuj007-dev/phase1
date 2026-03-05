@@ -13,6 +13,7 @@ import JourneyContactSection from './components/sections/JourneyContactSection';
 import FAQSection from './components/sections/FAQSection';
 import InitiativePage from './pages/InitiativePage';
 import BlogPage from './pages/BlogPage';
+import AboutPage from './pages/AboutPage';
 import './App.css';
 
 function Home() {
@@ -43,6 +44,7 @@ function App() {
           <Route path="/initiative/:slug" element={<InitiativePage />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:slug" element={<BlogPage />} />
+          <Route path="/about" element={<AboutPage />} />
         </Routes>
       </div>
       <Footer />
