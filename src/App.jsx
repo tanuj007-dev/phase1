@@ -9,8 +9,12 @@ import FeaturedVideoSection from './components/sections/FeaturedVideoSection';
 import BlogSection from './components/sections/BlogSection';
 import EventsSection from './components/sections/EventsSection';
 import PromotionalBannerSection from './components/sections/PromotionalBannerSection';
+import JourneyContactSection from './components/sections/JourneyContactSection';
+import FAQSection from './components/sections/FAQSection';
 import InitiativePage from './pages/InitiativePage';
 import BlogPage from './pages/BlogPage';
+import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage';
 import './App.css';
 import AboutUs from './pages/about-us';
 
@@ -25,6 +29,8 @@ function Home() {
         <BlogSection />
         <EventsSection />
         <PromotionalBannerSection />
+        <FAQSection />
+        <JourneyContactSection />
       </main>
     </>
   );
