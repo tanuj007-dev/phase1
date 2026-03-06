@@ -12,6 +12,7 @@ import PromotionalBannerSection from './components/sections/PromotionalBannerSec
 import InitiativePage from './pages/InitiativePage';
 import BlogPage from './pages/BlogPage';
 import './App.css';
+import AboutUs from './pages/about-us';
 
 function Home() {
   return (
@@ -39,6 +40,7 @@ function App() {
           <Route path="/initiative/:slug" element={<InitiativePage />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:slug" element={<BlogPage />} />
+          <Route path="/about-us" element={<AboutUs />} />
         </Routes>
       </div>
       <Footer />

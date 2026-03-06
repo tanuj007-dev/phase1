@@ -85,7 +85,7 @@ export default function Navbar() {
                         </Link>
                     </li>
                     <li>
-                        <Link to="#about" className={getLinkClass('#about')}>
+                        <Link to="about-us" className={getLinkClass('#about')}>
                             About
                         </Link>
                     </li>
