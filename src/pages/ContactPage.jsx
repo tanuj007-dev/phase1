@@ -51,7 +51,7 @@ export default function ContactPage() {
     name: '',
     phone: '',
     email: '',
-    subject: '',
+    subject: 'general',
     message: '',
   });
 
@@ -60,9 +60,18 @@ export default function ContactPage() {
     // Placeholder: could wire to API later
   };
 
-  const handleChange = (e) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+ const handleChange = (e) => {
+  const { name, value } = e.target;
+
+  // If the input is the phone field, only update if the value is empty or numeric
+  if (name === 'phone') {
+    const onlyNums = value.replace(/[^0-9]/g, ''); // Removes anything not 0-9
+    setFormData((prev) => ({ ...prev, [name]: onlyNums }));
+  } else {
+    // Standard update for all other fields
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  }
+};
 
   return (
     <main className="min-h-screen bg-[#fafaf8] pt-20 pb-0">
@@ -129,13 +138,15 @@ export default function ContactPage() {
                   <label className="block">
                     <span className="sr-only">Phone Number</span>
                     <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3.5 text-[#1A3A32] outline-none transition placeholder:text-[#1A3A32]/70 focus:border-slate-300 focus:ring-2 focus:ring-[#36D8B8]/20"
-                      placeholder="Phone Number"
-                    />
+  type="tel" // Keeps the numeric keypad on mobile
+  name="phone"
+  value={formData.phone}
+  onChange={handleChange}
+  inputMode="numeric" // Forces numeric keyboard on many mobile browsers
+  pattern="[0-9]*"    // Extra hint for browsers
+  className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3.5 text-[#1A3A32] outline-none transition placeholder:text-[#1A3A32]/70 focus:border-slate-300 focus:ring-2 focus:ring-[#36D8B8]/20"
+  placeholder="Phone Number"
+/>
                   </label>
                 </div>
                 {/* Row 2: Email Address | Subject Type */}
@@ -154,18 +165,25 @@ export default function ContactPage() {
                   <label className="block">
                     <span className="sr-only">Subject Type</span>
                     <select
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleChange}
-                      className="contact-input w-full appearance-none rounded-lg border border-slate-200 bg-white px-4 py-3.5 text-[#1A3A32] outline-none transition focus:border-slate-300 focus:ring-2 focus:ring-[#36D8B8]/20 [&>option]:text-[#1A3A32]"
-                      style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%231A3A32' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 0.75rem center', backgroundSize: '1.25rem', paddingRight: '2.5rem' }}
-                    >
-                      <option value="">Subject Type</option>
-                      <option value="general">General enquiry</option>
-                      <option value="wellness">Wellness programs</option>
-                      <option value="events">Events & workshops</option>
-                      <option value="support">Support</option>
-                    </select>
+  name="subject"
+  value={formData.subject}
+  onChange={handleChange}
+  className="contact-input w-full appearance-none rounded-lg border border-slate-200 bg-white px-4 py-3.5 text-[#1A3A32] outline-none transition focus:border-slate-300 focus:ring-2 focus:ring-[#36D8B8]/20 [&>option]:text-[#1A3A32]"
+  style={{ 
+    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%231A3A32' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E")`, 
+    backgroundRepeat: 'no-repeat', 
+    backgroundPosition: 'right 0.75rem center', 
+    backgroundSize: '1.25rem', 
+    paddingRight: '2.5rem' 
+  }}
+>
+  {/* Optional: keeps the label visible if the user clears the selection elsewhere */}
+  <option value="" disabled>Subject Type</option> 
+  <option value="general">General enquiry</option>
+  <option value="wellness">Wellness programs</option>
+  <option value="events">Events & workshops</option>
+  <option value="support">Support</option>
+</select>
                   </label>
                 </div>
                 {/* Row 3: Message (full width) */}

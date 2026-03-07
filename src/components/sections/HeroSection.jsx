@@ -71,7 +71,7 @@ export default function HeroSection() {
               We create personalized wellness experiences that evolve with you. Reflect on your growth and set new intentions as your well-being improves.
             </p>
             <Link
-              to="/#learn-more"
+              to="/services"
               className={`mt-6 sm:mt-8 inline-flex cursor-pointer uppercase items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base font-semibold text-slate-800 transition-all duration-500 hover:bg-white/95 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-transparent ${contentVisible ? 'translate-x-0 opacity-100' : 'translate-x-6 md:translate-x-12 opacity-0'}`}
               style={{ transitionDelay: contentVisible ? '450ms' : '0ms' }}
             >

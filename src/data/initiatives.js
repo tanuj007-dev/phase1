@@ -1,37 +1,41 @@
-/** Initiative slugs and copy – used by WellnessInitiativeOverview and InitiativePage */
-export const INITIATIVES = [
+export const INITIATIVE_OPTIONS = [
   {
-    slug: 'environment',
-    title: 'Environment',
-    shortDesc: 'Sustainable practices and green spaces for wellbeing.',
-    image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=600&q=80',
+    id: 1,
+    slug: "environment",
+    title: "Environment",
+    shortDesc: "Green spaces and sustainable habits support your wellbeing.",
+    image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09"
   },
   {
-    slug: 'health',
-    title: 'Health',
-    shortDesc: 'Fitness, nutrition, and physical wellness.',
-    image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&q=80',
+    id: 2,
+    slug: "health",
+    title: "Health",
+    shortDesc: "From nutrition to movement, our programs support your health.",
+    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b"
   },
   {
-    slug: 'mental',
-    title: 'Mental',
-    shortDesc: 'Mindfulness, stress relief, and mental health support.',
-    image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&q=80',
+    id: 3,
+    slug: "mental",
+    title: "Mental",
+    shortDesc: "Build resilience and calm with mindfulness.",
+    image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773"
   },
   {
-    slug: 'social-awareness',
-    title: 'Social Awareness',
-    shortDesc: 'Community, inclusion, and social wellbeing.',
-    image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80',
+    id: 4,
+    slug: "social-awareness",
+    title: "Social Awareness",
+    shortDesc: "Strong connections and inclusive communities.",
+    image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac"
   },
   {
-    slug: 'news-articles',
-    title: 'News & Articles',
-    shortDesc: 'Latest wellness insights and expert articles.',
-    image: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&q=80',
-  },
+    id: 5,
+    slug: "news-articles",
+    title: "News & Articles",
+    shortDesc: "Evidence-based insights and stories.",
+    image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8"
+  }
 ];
 
 export function getInitiative(slug) {
-  return INITIATIVES.find((i) => i.slug === slug) ?? null;
+  return INITIATIVE_OPTIONS.find((item) => item.slug === slug);
 }
